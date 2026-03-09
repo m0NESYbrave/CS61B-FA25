@@ -1,0 +1,63 @@
+InsertRandom: In this case, there may exist many collisions in MyHashMap.
+
+When N = 100000
+ULLMap: --Stack Overflow -- couldn't add 100000 strings of length 10.
+MyHashMap: 0.08 sec
+Java's Built-in HashMap: 0.05 sec
+
+When N = 1000000
+MyHashMap: 0.81 sec
+Java's Built-in HashMap: 0.37 sec
+
+When N = 10000000
+MyHashMap: 8.44 sec
+Java's Built-in HashMap: 4.81 sec
+
+---------------------------------------------------------------------
+InsertInOrder: If the hash code can spread out items evenly, Hashmap can have amortized runtime
+which performs well. If we insert <String, Integer> pairs in lexicographically-decreasing order,
+we can get a spindly BSTMap, which can get Big-Theta N in the worst case.
+
+When N = 100000
+ULLMap: --Stack Overflow -- couldn't add 100000 strings.
+MyHashMap: 0.08 sec
+Java's Built-in HashMap: 0.06 sec
+
+When N = 1000000
+MyHashMap: 0.43 sec
+Java's Built-in HashMap: 0.34 sec
+
+When N = 10000000
+MyHashMap: 3.36 sec
+Java's Built-in HashMap: 2.50 sec
+
+---------------------------------------------------------------------
+BucketsSpeed: We have to iterate through the corresponding bucket when we insert an item.
+For List, we can access contiguous memory so overhead is small.
+For HashSet, memory is usually not contiguous. Even worse, we don't make use of HashSet's
+amortized constant time operations since bucket is type of Collection<Node>, so we can only
+iterate through the bucket to search for the key instead of using HashSet's own operations.
+If we were able to use a constant-time search over HashSet, we can get a speed-up asymptotically.
+This tells us that the selection of the data structure must match with the way we use it.
+
+L = 10
+When N = 100000
+MyHashMap with ArrayList buckets: 0.18 sec
+MyHashMap with LinkedList buckets: 0.13 sec
+MyHashMap with HashSet buckets: 0.18 sec
+MyHashMap with Stack buckets: 0.12 sec
+MyHashMap with ArrayDeque buckets: 0.13 sec
+
+When N = 1000000
+MyHashMap with ArrayList buckets: 1.24 sec
+MyHashMap with LinkedList buckets: 1.23 sec
+MyHashMap with HashSet buckets: 1.40 sec
+MyHashMap with Stack buckets: 1.24 sec
+MyHashMap with ArrayDeque buckets: 1.11 sec
+
+When N = 10000000
+MyHashMap with ArrayList buckets: 11.28 sec
+MyHashMap with LinkedList buckets: 12.62 sec
+MyHashMap with HashSet buckets: 28.15 sec
+MyHashMap with Stack buckets: 11.69 sec
+MyHashMap with ArrayDeque buckets: 12.20 sec
