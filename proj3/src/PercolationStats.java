@@ -1,5 +1,6 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
+import edu.princeton.cs.algs4.Stopwatch;
 
 public class PercolationStats {
     private final double mean;
@@ -43,8 +44,23 @@ public class PercolationStats {
     }
 
     public static void main(String[] args) {
-        int trials = 100, gridSize = 50;
+        int trials = 100, gridSize = 1000; // 1000 takes too much time, can use 500 instead
+        Stopwatch timer = new Stopwatch();
         PercolationStats ps = new PercolationStats(gridSize, trials);
+        double time = timer.elapsedTime();
+        System.out.printf("%.2f seconds\n", time); // 17.61 seconds
+
+        timer = new Stopwatch();
+        ps = new PercolationStats(gridSize * 2, trials);
+        time = timer.elapsedTime();
+        System.out.printf("%.2f seconds\n", time); // 173.83 seconds
+
+        timer = new Stopwatch();
+        ps = new PercolationStats(gridSize, trials * 2);
+        time = timer.elapsedTime();
+        System.out.printf("%.2f seconds\n", time); // 59.66 seconds
+
+        gridSize = 50;
         System.out.printf("Grid Size: %d x %d | Number of Trials: %d%n", gridSize, gridSize, trials);
         System.out.printf("The mean percolation threshold is %.2f%n", ps.mean());
         System.out.printf("The standard deviation of the percolation threshold is %.2f.%n", ps.stddev());
