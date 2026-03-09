@@ -19,7 +19,35 @@ public class GameLogic {
      *              if no merge occurs, then return 0.
      */
     public static int moveTileUpAsFarAsPossible(int[][] board, int r, int c, int minR) {
-        // TODO: Fill this in in tasks 2, 3, 4
+        int temp = board[r][c];
+        int cnt = 0; // number of tiles between the top row (including it) and row r
+        for (int row = 0; row < r; row++) {
+            if (board[row][c] != 0) {
+                cnt += 1;
+            }
+        }
+        // without temp
+        //board[cnt][c] = board[r][c];
+        //if (cnt != r) {
+        //    board[r][c] = 0;
+        //}
+
+        // Move first
+        // I assume that when we move a whole column, we move the first tile in that direction first
+        board[r][c] = 0;
+        if (cnt >= minR) {
+            board[cnt][c] = temp;
+        } else {
+            board[minR][c] = temp;
+        }
+
+        // Merge
+        // With the condition of minR, we don't need cnt != 0 to discard top tile now
+        if (cnt - 1 >= minR && board[cnt - 1][c] == temp) {
+            board[cnt - 1][c] += temp;
+            board[cnt][c] = 0;
+            return cnt;
+        }
         return 0;
     }
 
@@ -31,8 +59,16 @@ public class GameLogic {
      * @param c         the column to tilt up.
      */
     public static void tiltColumn(int[][] board, int c) {
-        // TODO: fill this in in task 5
-        return;
+        // Indicate the row right after the merge happens, which represents minR of the current tile.
+        // 0 means no merge.
+        // Like 2, 2, 4, 4: When two 2s merge, afterMerge is 1, so the first 4 can only get to row 1.
+        // Then the other 4 comes, afterMerge is 0 so no merge, so merge two 4s.
+        int afterMerge = 0;
+        for (int r = 0; r < board.length; r++) {
+            if (board[r][c] != 0) {
+                afterMerge = moveTileUpAsFarAsPossible(board, r, c, afterMerge);
+            }
+        }
     }
 
     /**
@@ -41,8 +77,9 @@ public class GameLogic {
      * @param board     the current state of the board.
      */
     public static void tiltUp(int[][] board) {
-        // TODO: fill this in in task 6
-        return;
+        for (int c = 0; c < board.length; c++) {
+            tiltColumn(board, c);
+        }
     }
 
     /**
@@ -53,15 +90,22 @@ public class GameLogic {
      * @param side  the direction to tilt
      */
     public static void tilt(int[][] board, Side side) {
-        // TODO: fill this in in task 7
         if (side == Side.EAST) {
-            return;
+            rotateLeft(board);
+            tiltUp(board);
+            rotateRight(board);
         } else if (side == Side.WEST) {
-            return;
+            rotateRight(board);
+            tiltUp(board);
+            rotateLeft(board);
         } else if (side == Side.SOUTH) {
-            return;
+            rotateLeft(board);
+            rotateLeft(board);
+            tiltUp(board);
+            rotateRight(board);
+            rotateRight(board);
         } else {
-            return;
+            tiltUp(board);
         }
     }
 }
