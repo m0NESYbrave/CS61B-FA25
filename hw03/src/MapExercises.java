@@ -7,21 +7,30 @@ public class MapExercises {
      * 1, 'b' is 2, 'c' is 3, ..., 'z' is 26.
      */
     public static Map<Character, Integer> letterToNum() {
-        // TODO: Implement this method
-        return null;
+        TreeMap<Character, Integer> map = new TreeMap<>();
+        for (char c = 'a'; c <= 'z'; c++) {
+            map.put(c, c - 'a' + 1);
+        }
+        return map;
     }
 
     /** Returns a map from the integers in the list to their squares. For example, if the input list
      *  is [1, 3, 6, 7], the returned map goes from 1 to 1, 3 to 9, 6 to 36, and 7 to 49.
      */
     public static Map<Integer, Integer> squares(List<Integer> nums) {
-        // TODO: Implement this method
-        return null;
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        for (int num : nums) {
+            map.put(num, num * num);
+        }
+        return map;
     }
 
     /** Returns a map of the counts of all words that appear in a list of words. */
     public static Map<String, Integer> countWords(List<String> words) {
-        // TODO: Implement this method
-        return null;
+        TreeMap<String, Integer> map = new TreeMap<>();
+        for (String word : words) {
+            map.merge(word, 1, Integer::sum);
+        }
+        return map;
     }
 }
