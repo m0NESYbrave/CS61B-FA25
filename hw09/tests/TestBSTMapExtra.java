@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -114,4 +115,51 @@ public class TestBSTMapExtra {
         assertThat(noChild.get('Z')).isNull();
     }
 
+    // I add this
+    @Test
+    public void testIteration() {
+        BSTMap<String, String> q = new BSTMap<>();
+        ArrayList<String> list = new ArrayList<>();
+
+        q.put("c", "a");
+        q.put("b", "a");
+        q.put("a", "a");
+        q.put("d", "a");
+        q.put("e", "a");
+
+        for (String key : q) {
+            list.add(key);
+        }
+
+        assertThat(list).containsExactly("a", "b", "c", "d", "e");
+
+        BSTMap<String, Integer> map = new BSTMap<>();
+        list.clear();
+
+        map.put("dog", 1);
+        map.put("bag", 2);
+        map.put("flat", 3);
+        map.put("alf", 4);
+        map.put("cat", 5);
+        map.put("elf", 6);
+        map.put("glut", 7);
+        map.put("eyes", 8);
+
+        for (String key : map) {
+            list.add(key);
+        }
+
+        assertThat(list).containsExactly("alf", "bag", "cat", "dog", "elf", "eyes", "flat", "glut");
+
+        map.remove("glut");
+        map.remove("elf");
+        map.remove("dog");
+        list.clear();
+
+        for (String key : map) {
+            list.add(key);
+        }
+
+        assertThat(list).containsExactly("alf", "bag", "cat", "eyes", "flat");
+    }
 }
