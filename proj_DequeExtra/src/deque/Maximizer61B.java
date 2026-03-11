@@ -1,4 +1,5 @@
 package deque;
+
 import java.util.Comparator;
 
 public class Maximizer61B {
@@ -6,33 +7,45 @@ public class Maximizer61B {
      * Returns the maximum element from the given iterable of comparables.
      * You may assume that the iterable contains no nulls.
      *
-     * @param iterable  the Iterable of T
-     * @return          the maximum element
+     * @param iterable the Iterable of T
+     * @return the maximum element
      */
     public static <T extends Comparable<T>> T max(Iterable<T> iterable) {
-        return null;
+        T max = null;
+        for (T elem : iterable) {
+            if (max == null || elem.compareTo(max) > 0) { // max can't be null
+                max = elem;
+            }
+        }
+        return max;
     }
 
     /**
      * Returns the maximum element from the given iterable according to the specified comparator.
      * You may assume that the iterable contains no nulls.
      *
-     * @param iterable  the Iterable of T
-     * @param comp      the Comparator to compare elements
-     * @return          the maximum element according to the comparator
+     * @param iterable the Iterable of T
+     * @param comp     the Comparator to compare elements
+     * @return the maximum element according to the comparator
      */
     public static <T> T max(Iterable<T> iterable, Comparator<T> comp) {
-        return null;
+        T max = null;
+        for (T elem : iterable) {
+            if (max == null || comp.compare(elem, max) > 0) {
+                max = elem;
+            }
+        }
+        return max;
     }
 
     public static void main(String[] args) {
         // The style checker will complain about this main method, feel free to delete.
 
-        // ArrayDeque61B<Integer> ad = new ArrayDeque61B<>();
-        // ad.addLast(5);
-        // ad.addLast(12);
-        // ad.addLast(17);
-        // ad.addLast(23);
-        // System.out.println(max(ad));
+        ArrayDeque61B<Integer> ad = new ArrayDeque61B<>();
+        ad.addLast(5);
+        ad.addLast(12);
+        ad.addLast(17);
+        ad.addLast(23);
+        System.out.println(max(ad));
     }
 }
