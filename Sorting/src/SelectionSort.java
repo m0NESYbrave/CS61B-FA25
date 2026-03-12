@@ -1,6 +1,4 @@
 public class SelectionSort {
-
-
     /**
      * @param arr
      *
@@ -19,7 +17,6 @@ public class SelectionSort {
         }
     }
 
-
     /**
      * @param arr
      * @param start
@@ -36,7 +33,6 @@ public class SelectionSort {
         }
         return min;
     }
-
 
     /**
      * @param arr

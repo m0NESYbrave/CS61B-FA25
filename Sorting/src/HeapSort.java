@@ -1,6 +1,4 @@
 public class HeapSort {
-
-
     /**
      * @param arr
      *
@@ -16,7 +14,11 @@ public class HeapSort {
      * Read through it carefully and try to understand how it works.
      */
     public static void sort(int[] arr) {
-        // TODO: Implement heap sort
+        heapify(arr);
+        for (int i = 0; i < arr.length; i++) {
+            swap(arr, 0, arr.length - 1 - i);
+            bubbleDown(arr, 0, arr.length - 1 - i);
+        }
     }
 
     /**
@@ -28,7 +30,9 @@ public class HeapSort {
      * Suggested helper method that will make it easier for you to implement heap sort.
      */
     private static void heapify(int[] arr) {
-        // TODO: Implement heapify
+        for (int i = arr.length - 1; i >= 0; i--) {
+            bubbleDown(arr, i, arr.length); // the index can't be >= the size of the heap
+        }
     }
 
 
@@ -44,8 +48,12 @@ public class HeapSort {
     private static void bubbleDown(int[] arr, int i, int limit) {
         int left = getLeftChild(i);
         int right = getRightChild(i);
+        // I tried maxChild without limit, then we can access sorted part.
+        // In the first instance, after we fix 5, the array is [2, 4, 1, 3, 5, 6, 7]
+        // bubbleDown(i = 0), [4, 2, 1, 3], bubbleDown(i = 1), left is 3 and right is 4.
+        // If we don't check limit in maxChild, it will find arr[4] = 5 > arr[3] = 3.
         int maxChild = max(arr, left, right, limit);
-        if (left >= limit) {
+        if (left >= limit) { // if left is beyond the limit, definitely the same for right
             return;
         }
         if (arr[i] < arr[maxChild]) {
@@ -77,6 +85,9 @@ public class HeapSort {
      *
      */
     private static int max(int[] arr, int i, int j, int limit) {
+        // If the node has left child but no right child (already sorted), then we may access sorted part.
+        // So if right is beyond the limit, just return left which >= limit or < limit,
+        // bubbleDown handles this.
         if (j >= limit || arr[i] > arr[j]) {
             return i;
         }
@@ -105,7 +116,4 @@ public class HeapSort {
     private static int getRightChild(int i) {
         return 2 * i + 2;
     }
-
-
 }
-

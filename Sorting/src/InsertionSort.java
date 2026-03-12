@@ -1,6 +1,4 @@
-
 public class InsertionSort {
-
     /**
      * @param arr
      *
@@ -35,6 +33,5 @@ public class InsertionSort {
         int temp = arr[i];
         arr[i]  = arr[j];
         arr[j]  = temp;
-
     }
 }
