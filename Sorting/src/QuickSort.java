@@ -24,10 +24,10 @@ public class QuickSort {
             return;
         }
         int[] partition = partition(arr, start, end);
-        if (partition[0] != start - 1) { // all items >= pivot
+        if (partition[0] != start - 1) { // in case all items >= pivot
             quickSort(arr, start, partition[0] + 1);
         }
-        if (partition[1] != end) { // all items <= pivot
+        if (partition[1] != end) { // in case all items <= pivot
             quickSort(arr, partition[1], end);
         }
     }
